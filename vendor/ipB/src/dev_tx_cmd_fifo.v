@@ -113,17 +113,6 @@ assign full_n = ~((r_rear_addr[P_FIFO_DEPTH_WIDTH] ^ r_front_sync_addr[P_FIFO_DE
 					& (r_rear_addr[P_FIFO_DEPTH_WIDTH-1:P_FIFO_ALLOC_WIDTH] 
 					== r_front_sync_addr[P_FIFO_DEPTH_WIDTH-1:P_FIFO_ALLOC_WIDTH]));
 
-always @(posedge wr_clk or negedge wr_rst_n)
-begin
-	if (wr_rst_n == 0) begin
-		r_rear_addr <= 0;
-	end
-	else begin
-		if (wr_en == 1)
-			r_rear_addr  <= r_rear_addr + 1;
-	end
-end
-
 assign empty_n = ~(r_front_addr[P_FIFO_DEPTH_WIDTH:P_FIFO_ALLOC_WIDTH] 
 					== r_rear_sync_addr);
 
