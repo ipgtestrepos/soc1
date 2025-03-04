@@ -77,9 +77,7 @@ module code_nco (clk, rstn, tic_enable, f_control, hc_enable, code_nco_phase);
 	else accum_reg <= accum_sum[28:0];
      end
 
-   //assign accum_sum = accum_reg + f_control;
-   assign accum_sum = accum_reg + {1'b0,f_control};
-   assign accum_carry = accum_sum[29];
+ 
 
    // latch the top 10 bits on the tic_enable
    always @ (posedge clk)
@@ -95,6 +93,10 @@ module code_nco (clk, rstn, tic_enable, f_control, hc_enable, code_nco_phase);
 	else if (accum_carry) hc_enable <= 1;
 	else hc_enable <= 0;
      end
+     
+  //assign accum_sum = accum_reg + f_control;
+   assign accum_sum = accum_reg + {1'b0,f_control};
+   assign accum_carry = accum_sum[29];
 
 endmodule // code_nco
 

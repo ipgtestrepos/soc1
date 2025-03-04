@@ -43,10 +43,7 @@ module code_gen (clk, rstn,
   `ifdef ENABLE_GLONASS
   input glns_or_gps;      // [Art] GLONASS or GPS Code generator (1 = GLONASS, 0 = GPS)
   `endif
-  input [9:0] prn_key;    // 10 bit number used to select satellite PRN code
-  input prn_key_enable;   // pulse to latch in the prn_key and reset the logic (write & chip_select)
-  input slew_enable;      // pulse to set the slew_flag (write & chip select)
-  input [10:0] code_slew; // number of half chips to delay the C/A code after the next dump_enable 
+
 
   output dump_enable;          // pulse at the begining/end of prompt C/A code cycle
   output reg [10:0] code_phase;// the phase of the C/A code at the TIC
@@ -80,6 +77,10 @@ module code_gen (clk, rstn,
   //shift register GavAI implementation.
   reg [2:0] shft_reg;
   
+    input [9:0] prn_key;    // 10 bit number used to select satellite PRN code
+  input prn_key_enable;   // pulse to latch in the prn_key and reset the logic (write & chip_select)
+  input slew_enable;      // pulse to set the slew_flag (write & chip select)
+  input [10:0] code_slew; // number of half chips to delay the C/A code after the next dump_enable 
     
   // The G1 shift register
   //----------------------
